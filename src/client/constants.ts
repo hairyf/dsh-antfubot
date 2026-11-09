@@ -2,13 +2,13 @@
 export const SETTINGS_SLOT = 'settings.general.item'
 
 /** Stable registration id inside that slot. */
-export const SETTINGS_ROW_ID = 'antfuflow-account'
+export const SETTINGS_ROW_ID = 'antfubot-account'
 
 /** Row ordering: right after the built-in language row (order 0). */
 export const SETTINGS_ROW_ORDER = 10
 
 /** Route prefix owned by the host half. */
-export const API_BASE = '/api/antfuflow'
+export const API_BASE = '/api/antfubot'
 
 /** Locale namespace for this plugin's strings. */
-export const LOCALE_NS = 'antfuflow'
+export const LOCALE_NS = 'antfubot'

@@ -1,26 +1,19 @@
-catalogMode: manual
 ignoreWorkspaceRootCheck: true
 minimumReleaseAgeExclude:
   - '@types/node@25.9.0'
   - tsx@4.22.2
   - dsh-h3@0.2.2
   - bumpp@12.0.0
+
 shellEmulator: true
 trustPolicy: no-downgrade
-
-packages:
-  - playground
-  - docs
-  - packages/*
-  - examples/*
-
 allowBuilds:
-  '@deepseek-ai/dsh-subprocess-local': set this to true or false
-  '@google/genai': set this to true or false
-  dsh-antfuflow: true
+  '@deepseek-ai/dsh-subprocess-local': true
+  '@google/genai': false
+  dsh-antfubot: true
   esbuild: true
-  koffi: set this to true or false
-  node-pty: set this to true or false
+  koffi: true
+  node-pty: true
   playwright: true
-  protobufjs: set this to true or false
+  protobufjs: true
   simple-git-hooks: true

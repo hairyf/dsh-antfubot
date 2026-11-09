@@ -71,7 +71,7 @@ export function statusSummary(settings: AntfuFlowSettings, active: boolean | und
       ? ' (it is the active gh account)'
       : ' (it is not the active gh account, which is expected: gh is scoped per call)'
   return [
-    'Report this workspace\'s antfuflow status in one short block.',
+    'Report this workspace\'s antfubot status in one short block.',
     '',
     'Run only read-only commands and report:',
     '- repository: `gh repo view --json nameWithOwner` (when this is not a git repository, say so and stop)',

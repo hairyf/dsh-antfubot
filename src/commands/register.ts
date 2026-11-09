@@ -162,5 +162,5 @@ export function registerCommands(ctx: Context): void {
         return dispatch(invocation, text)
       },
     })
-  }, 'antfuflow commands lifecycle')
+  }, 'antfubot commands lifecycle')
 }

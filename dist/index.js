@@ -15,9 +15,9 @@ import { defineWebServer } from "dsh-h3";
 import { defineEventHandler, readBody } from "h3";
 //#region src/constants.ts
 /** Package identity; also the bundle plugin id and CLI-facing label. */
-const PACKAGE_NAME = "dsh-antfuflow";
+const PACKAGE_NAME = "dsh-antfubot";
 /** Registry provider label used for the injected skills. */
-const SKILL_PROVIDER = "antfuflow";
+const SKILL_PROVIDER = "antfubot";
 /** Slash commands registered by this plugin. */
 const COMMANDS = {
 	triage: "triage",
@@ -390,7 +390,7 @@ const DEFAULT_SETTINGS = { githubAccount: "" };
 */
 function settingsPath() {
 	const profileDir = process$1.env.DSH_PROFILE_DIR;
-	return join(profileDir && profileDir.length > 0 ? profileDir : join(process$1.env.DSH_HOME ?? join(homedir(), ".dsh")), "antfuflow", "settings.json");
+	return join(profileDir && profileDir.length > 0 ? profileDir : join(process$1.env.DSH_HOME ?? join(homedir(), ".dsh")), "antfubot", "settings.json");
 }
 function normalize$1(raw) {
 	if (raw === null || typeof raw !== "object") return DEFAULT_SETTINGS;
@@ -564,7 +564,7 @@ const DIGEST_READ = [
 ].join("\n");
 function statusSummary(settings, active) {
 	return [
-		"Report this workspace's antfuflow status in one short block.",
+		"Report this workspace's antfubot status in one short block.",
 		"",
 		"Run only read-only commands and report:",
 		"- repository: `gh repo view --json nameWithOwner` (when this is not a git repository, say so and stop)",
@@ -748,7 +748,7 @@ function registerCommands(ctx) {
 				return dispatch(invocation, rest.length > 0 ? `${GRILL}\n\nThe subject:\n${rest}` : GRILL);
 			}
 		});
-	}, "antfuflow commands lifecycle");
+	}, "antfubot commands lifecycle");
 }
 //#endregion
 //#region src/server/routes/accounts.get.ts
@@ -789,13 +789,13 @@ var settings_put_default = defineEventHandler(async (event) => {
 //#region src/server/index.ts
 /** Routes this plugin owns. All of them live under one static prefix. */
 const server = defineWebServer((app) => {
-	app.get("/api/antfuflow/settings", settings_get_default);
-	app.put("/api/antfuflow/settings", settings_put_default);
-	app.get("/api/antfuflow/accounts", accounts_get_default);
+	app.get("/api/antfubot/settings", settings_get_default);
+	app.put("/api/antfubot/settings", settings_put_default);
+	app.get("/api/antfubot/accounts", accounts_get_default);
 });
 /** Register the routes on the host web server for this activation. */
 function registerServer(ctx) {
-	ctx.effect(() => server(ctx), "antfuflow: routes");
+	ctx.effect(() => server(ctx), "antfubot: routes");
 }
 //#endregion
 //#region src/skills/catalog.ts
@@ -893,14 +893,14 @@ function registerSkills(ctx) {
 }
 //#endregion
 //#region src/index.ts
-const name = "antfuflow";
+const name = "antfubot";
 const inject = [
 	"skills",
 	"commands",
 	"webServer"
 ];
 /**
-* Mount the antfuflow workflow plugin.
+* Mount the antfubot workflow plugin.
 *
 * Three independent contributions: the four antfu skills reach every session
 * catalog, the slash commands compose prompts that name those skills, and the

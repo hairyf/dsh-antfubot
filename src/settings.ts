@@ -17,7 +17,7 @@ export function settingsPath(): string {
   const root = profileDir && profileDir.length > 0
     ? profileDir
     : join(process.env.DSH_HOME ?? join(homedir(), '.dsh'))
-  return join(root, 'antfuflow', 'settings.json')
+  return join(root, 'antfubot', 'settings.json')
 }
 
 function normalize(raw: unknown): AntfuFlowSettings {

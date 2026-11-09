@@ -6,12 +6,12 @@ import putSettings from './routes/settings.put'
 
 /** Routes this plugin owns. All of them live under one static prefix. */
 export const server = defineWebServer((app) => {
-  app.get('/api/antfuflow/settings', getSettings)
-  app.put('/api/antfuflow/settings', putSettings)
-  app.get('/api/antfuflow/accounts', readAccounts)
+  app.get('/api/antfubot/settings', getSettings)
+  app.put('/api/antfubot/settings', putSettings)
+  app.get('/api/antfubot/accounts', readAccounts)
 })
 
 /** Register the routes on the host web server for this activation. */
 export function registerServer(ctx: Context): void {
-  ctx.effect(() => server(ctx), 'antfuflow: routes')
+  ctx.effect(() => server(ctx), 'antfubot: routes')
 }

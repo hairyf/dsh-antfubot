@@ -1,9 +1,9 @@
 import { Context } from "@deepseek-ai/cordis";
 //#region src/index.d.ts
-declare const name = "antfuflow";
+declare const name = "antfubot";
 declare const inject: string[];
 /**
- * Mount the antfuflow workflow plugin.
+ * Mount the antfubot workflow plugin.
  *
  * Three independent contributions: the four antfu skills reach every session
  * catalog, the slash commands compose prompts that name those skills, and the

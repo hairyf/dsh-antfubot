@@ -1,5 +1,5 @@
 /** Package identity; also the bundle plugin id and CLI-facing label. */
-export const PACKAGE_NAME = 'dsh-antfuflow'
+export const PACKAGE_NAME = 'dsh-antfubot'
 
 /** Skill names this plugin injects into every session catalog. */
 export const SKILL_NAMES = [
@@ -12,7 +12,7 @@ export const SKILL_NAMES = [
 export type SkillName = (typeof SKILL_NAMES)[number]
 
 /** Registry provider label used for the injected skills. */
-export const SKILL_PROVIDER = 'antfuflow'
+export const SKILL_PROVIDER = 'antfubot'
 
 /** Bundled skill rank: after local roots so a workspace copy can override. */
 export const SKILL_RANK = 600

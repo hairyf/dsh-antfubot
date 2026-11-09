@@ -1,8 +1,8 @@
-# dsh-antfuflow
+# dsh-antfubot
 
 Anthony Fu's agent workflow for DeepSeek Harness: issue triage, a persistent digest, task execution, pull requests, simplification, and design interviews.
 
-`dsh-antfuflow` does two things:
+`dsh-antfubot` does two things:
 
 1. **Injects four skills** into every session catalog, so the agent has the procedure before you ask for it.
 2. **Registers thirteen slash commands** that compose the request and hand it to the agent.
@@ -60,7 +60,7 @@ They are bundled at rank 600, so a workspace copy under `.agents/skills` or `.ds
 
 The dropdown lists the accounts `gh auth status` reports and marks the active one. Selection is **plugin-scoped**: each gh call runs with `GH_TOKEN` for the chosen account, so nothing is written to gh's config and your global `gh auth` login stays exactly as it was. "Use the active gh account" clears the override.
 
-The setting is stored per profile at `$DSH_PROFILE_DIR/antfuflow/settings.json`.
+The setting is stored per profile at `$DSH_PROFILE_DIR/antfubot/settings.json`.
 
 ## Configuration
 

@@ -8,10 +8,3 @@ lib-cov
 logs
 node_modules
 temp
-
-# Ignore generated npm skills, while keeping project-owned skills visible
-.agents/skills
-**/skills/*
-!**/skills/*/
-!**/skills/*/**
-**/skills/npm-*

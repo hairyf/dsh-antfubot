@@ -1,5 +1,5 @@
 - insert:
-    - id: dsh-antfuflow
-      name: dsh-antfuflow
+    - id: dsh-antfubot
+      name: dsh-antfubot
     - id: dsh-taiwind
       name: dsh-taiwind
