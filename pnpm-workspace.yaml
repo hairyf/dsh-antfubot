@@ -17,10 +17,10 @@ packages:
 allowBuilds:
   '@deepseek-ai/dsh-subprocess-local': set this to true or false
   '@google/genai': set this to true or false
+  dsh-antfuflow: true
   esbuild: true
   koffi: set this to true or false
   node-pty: set this to true or false
-  pkg-placeholder: true
   playwright: true
   protobufjs: set this to true or false
   simple-git-hooks: true
