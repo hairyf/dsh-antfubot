@@ -1,8 +1,5 @@
 import { defineEventHandler } from 'h3'
-import { readSettings } from '../../settings'
+import { currentConfig } from '../../index'
 
-/** Return the plugin settings for the settings panel. */
-export default defineEventHandler(async () => {
-  const settings = await readSettings()
-  return { settings }
-})
+/** Return the composed config so the card can render the current selection. */
+export default defineEventHandler(() => ({ settings: currentConfig() }))

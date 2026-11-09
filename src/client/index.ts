@@ -1,54 +1,34 @@
 import type { Context } from '@deepseek-ai/cordis'
-// Type-only: bring the `slots`/`locale` services and the settings/General slot
-// contract into scope without importing either package at runtime.
-import type {} from '@deepseek-ai/dsh-client-locale/client'
+// Type-only: bring the configForms service and the Plugins-page slot contract
+// into scope without importing either package at runtime.
+import type {} from '@deepseek-ai/dsh-client-ui-plugin-manager/client'
 import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
 import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import { AccountRow } from './components/account-row'
-import { SETTINGS_ROW_ID, SETTINGS_ROW_ORDER, SETTINGS_SLOT } from './constants'
-import { en, zh } from './locale'
+import { AccountCard } from './components/account-card'
+import { PLUGIN_PACKAGE, SETTINGS_SLOT } from './constants'
 
 /**
- * Cordis services this client half waits for before it activates.
+ * Services this client half waits for before it activates.
  *
- * The loader holds the entry until each named service exists; a service that
- * never arrives leaves the entry inactive, which the web boot audit reports as
- * "1 entry did not activate". `slots` renders the row and `locale` resolves its
- * copy. The host HTTP routes the row calls need no service here.
+ * The loader holds the entry until each named service exists, and a service
+ * that never arrives leaves the entry inactive — which the web boot audit
+ * reports as "1 entry did not activate".
  */
-export const inject = ['slots', 'locale']
+export const inject = ['slots', 'configForms']
 
 /**
- * Contribute one row to Settings → General.
+ * Contribute this bundle's settings card to its Plugins detail page.
  *
- * The General item slot hands the registrar no props, so the row owns its own
- * copy and receives a translate function through `inject`. Reading the locale
- * registry at call time keeps the row correct after a language switch without
- * re-registering the slot.
- *
- * `slots.inject` waits for the settings surface, so a client without it never
- * registers and never throws; the registration disposer removes this row on
- * unload.
+ * Keying the registration by package name is what places the card on this
+ * bundle's own page; `configForms.get` returns the harness-owned form the card
+ * reads and writes, so persistence stays with the harness.
  */
 export function apply(ctx: Context): void {
   ctx.slots.inject(SETTINGS_SLOT, () => ctx.slots.register({
     name: SETTINGS_SLOT,
-    id: SETTINGS_ROW_ID,
-    order: SETTINGS_ROW_ORDER,
+    key: PLUGIN_PACKAGE,
     inject: () => ({
-      t: (key: string): string => {
-        const dict = activeLocale(ctx) === 'zh' ? zh : en
-        return (dict as Record<string, string>)[key] ?? (en as Record<string, string>)[key] ?? key
-      },
+      form: ctx.configForms.get<{ githubAccount: string }>(PLUGIN_PACKAGE),
     }),
-  }, AccountRow))
-}
-
-function activeLocale(ctx: Context): string {
-  try {
-    return ctx.locale.getSnapshot().active
-  }
-  catch {
-    return 'en'
-  }
+  }, AccountCard))
 }

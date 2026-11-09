@@ -22,18 +22,27 @@
   ],
   "sideEffects": false,
   "exports": {
-    ".": "./dist/index.js",
-    "./client": "./dist/client.cjs",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./client": {
+      "default": "./dist/client.cjs"
+    },
+    "./locale/*.json": "./locale/*.json",
     "./package.json": "./package.json"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "icon": "./assets/icon.svg",
   "files": [
     "README.md",
     "assets",
     "cordis.patch.yml",
     "dist",
+    "docs",
+    "locale",
     "src/main.css"
   ],
   "dsh": {
@@ -41,6 +50,7 @@
       "inject": [
         "@deepseek-ai/dsh-client-locale",
         "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-plugin-manager",
         "@deepseek-ai/dsh-client-ui-renderer",
         "@deepseek-ai/dsh-client-ui-settings"
       ],
@@ -93,12 +103,16 @@
     "@antfu/ni": "^30.2.0",
     "@deepseek-ai/cordis": "4.0.5",
     "@deepseek-ai/dsh-client-locale": "^0.2.2-rc.1",
+    "@deepseek-ai/dsh-client-ui-plugin-manager": "^0.2.2-rc.1",
+    "@deepseek-ai/dsh-client-ui-primitives": "^0.2.2-rc.1",
     "@deepseek-ai/dsh-client-ui-renderer": "^0.2.2-rc.1",
     "@deepseek-ai/dsh-client-ui-settings": "^0.2.2-rc.1",
+    "@deepseek-ai/dsh-client-ui-slots": "^0.2.2-rc.1",
     "@deepseek-ai/dsh-commands": "^0.2.2-rc.1",
     "@deepseek-ai/dsh-host-webserver": "^0.2.2-rc.1",
     "@deepseek-ai/dsh-llm": "^0.2.2-rc.1",
     "@deepseek-ai/dsh-skill": "^0.2.2-rc.1",
+    "@deepseek-ai/schemastery": "^3.19.0",
     "@types/node": "^26.1.1",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",

@@ -9,10 +9,11 @@ import { pipeline } from "node:stream/promises";
 import { PassThrough } from "node:stream";
 import readline from "node:readline";
 import { closeSync, openSync, readSync, statSync } from "node:fs";
-import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { defineWebServer } from "dsh-h3";
 import { defineEventHandler, readBody } from "h3";
+import Schema from "@deepseek-ai/schemastery";
 //#region src/constants.ts
 /** Package identity; also the bundle plugin id and CLI-facing label. */
 const PACKAGE_NAME = "dsh-antfubot";
@@ -406,19 +407,6 @@ async function readSettings() {
 		return DEFAULT_SETTINGS;
 	}
 }
-/** Merge a patch into the stored settings and persist it atomically. */
-async function writeSettings(patch) {
-	const next = {
-		...await readSettings(),
-		...patch
-	};
-	const file = settingsPath();
-	await mkdir(dirname(file), { recursive: true });
-	const tmp = `${file}.${process$1.pid}.tmp`;
-	await writeFile(tmp, `${JSON.stringify(next, null, 2)}\n`, "utf8");
-	await rename(tmp, file);
-	return next;
-}
 //#endregion
 //#region src/gh.ts
 /**
@@ -751,6 +739,16 @@ function registerCommands(ctx) {
 	}, "antfubot commands lifecycle");
 }
 //#endregion
+//#region src/config-forms.ts
+/** Default used when a caller has no config yet (tests, first composition). */
+const DEFAULT_CONFIG = { githubAccount: "" };
+/** Narrow whatever the loader handed us into a usable Config. */
+function normalizeConfig(raw) {
+	if (raw === null || typeof raw !== "object") return DEFAULT_CONFIG;
+	const value = raw;
+	return { githubAccount: typeof value.githubAccount === "string" ? value.githubAccount.trim() : "" };
+}
+//#endregion
 //#region src/server/routes/accounts.get.ts
 /**
 * List gh CLI accounts for the settings dropdown.
@@ -767,23 +765,19 @@ var accounts_get_default = defineEventHandler(async () => {
 });
 //#endregion
 //#region src/server/routes/settings.get.ts
-/** Return the plugin settings for the settings panel. */
-var settings_get_default = defineEventHandler(async () => {
-	return { settings: await readSettings() };
-});
+/** Return the composed config so the card can render the current selection. */
+var settings_get_default = defineEventHandler(() => ({ settings: currentConfig() }));
 //#endregion
 //#region src/server/routes/settings.put.ts
 /**
-* Persist one settings patch.
+* The account is edited through the harness config form, not over HTTP.
 *
-* Only `githubAccount` is accepted: an unknown field must not become a
-* silently stored value the command handlers never read.
+* This route exists only to reject writes clearly rather than silently
+* accepting a value no composition would ever read.
 */
 var settings_put_default = defineEventHandler(async (event) => {
-	const raw = (await readBody(event))?.githubAccount;
-	if (raw !== void 0 && typeof raw !== "string") return { error: "githubAccount must be a string" };
-	if (typeof raw === "string" && raw.length > 0 && !/^[\w.-]+$/.test(raw)) return { error: "githubAccount must be a GitHub login" };
-	return { settings: await writeSettings({ githubAccount: typeof raw === "string" ? raw : "" }) };
+	await readBody(event).catch(() => void 0);
+	return { error: "Edit the GitHub account in this plugin's settings card." };
 });
 //#endregion
 //#region src/server/index.ts
@@ -892,6 +886,9 @@ function registerSkills(ctx) {
 	ctx.skills.registerProvider(() => provider);
 }
 //#endregion
+//#region src/config.ts
+const Config = Schema.object({ githubAccount: Schema.string().default("") });
+//#endregion
 //#region src/index.ts
 const name = "antfubot";
 const inject = [
@@ -899,18 +896,25 @@ const inject = [
 	"commands",
 	"webServer"
 ];
+/** Value of the last composed config, read by the routes this plugin serves. */
+let current = normalizeConfig(void 0);
+/** The config the running commands and routes act on. */
+function currentConfig() {
+	return current;
+}
 /**
 * Mount the antfubot workflow plugin.
 *
 * Three independent contributions: the four antfu skills reach every session
 * catalog, the slash commands compose prompts that name those skills, and the
-* HTTP routes back the settings panel. Each fails loudly on its own instead of
+* HTTP routes back the account picker. Each fails loudly on its own instead of
 * leaving a half-working surface.
 */
-function apply(ctx) {
+function apply(ctx, config) {
+	current = normalizeConfig(config);
 	registerSkills(ctx);
 	registerCommands(ctx);
 	registerServer(ctx);
 }
 //#endregion
-export { apply, inject, name };
+export { Config, apply, currentConfig, inject, name };

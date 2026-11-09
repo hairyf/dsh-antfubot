@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "detail": "docs/DETAIL.zh.md"
+  },
+  "title": "dsh-antfubot",
+  "summary": "Anthony Fu 的 Agent 工作流：triage、digest、task、PR。"
+}

@@ -1,14 +1,11 @@
-/** Slot this plugin contributes to: one row in Settings → General. */
-export const SETTINGS_SLOT = 'settings.general.item'
+/** Package name; also the config namespace and the Plugins-page entry key. */
+export const PLUGIN_PACKAGE = 'dsh-antfubot'
 
-/** Stable registration id inside that slot. */
-export const SETTINGS_ROW_ID = 'antfubot-account'
-
-/** Row ordering: right after the built-in language row (order 0). */
-export const SETTINGS_ROW_ORDER = 10
+/** Slot that renders one bundle's configuration on its Plugins detail page. */
+export const SETTINGS_SLOT = 'plugins.bundle.config'
 
 /** Route prefix owned by the host half. */
 export const API_BASE = '/api/antfubot'
 
-/** Locale namespace for this plugin's strings. */
-export const LOCALE_NS = 'antfubot'
+/** Locale namespace used by the settings row copy. */
+export const LOCALE_NS = PLUGIN_PACKAGE

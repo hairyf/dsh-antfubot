@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "detail": "docs/DETAIL.md"
+  },
+  "title": "dsh-antfubot",
+  "summary": "Anthfu Fu's agent workflow: triage, digest, task, PR."
+}
