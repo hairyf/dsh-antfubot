@@ -31,9 +31,9 @@
   "types": "./dist/index.d.ts",
   "files": [
     "README.md",
+    "assets",
     "cordis.patch.yml",
     "dist",
-    "skills",
     "src/main.css"
   ],
   "dsh": {

@@ -12,8 +12,6 @@ temp
 # Ignore generated npm skills, while keeping project-owned skills visible
 .agents/skills
 **/skills/*
-!skills/antfu-*.md
-!/skills/antfu-*.md
 !**/skills/*/
 !**/skills/*/**
 **/skills/npm-*

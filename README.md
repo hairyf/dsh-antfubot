@@ -52,7 +52,7 @@ Four skills are injected from this package:
 | `antfu-simplify` | Ablation study that keeps only what is proven needed. |
 | `antfu-query` | Relentless design-tree interview through the question tool. |
 
-They are bundled at rank 600, so a workspace copy under `.agents/skills` or `.dsh/skills` overrides them. Bodies live in `skills/<name>.md` and are read on every load: editing one takes effect without a rebuild.
+They are bundled at rank 600, so a workspace copy under `.agents/skills` or `.dsh/skills` overrides them. Bodies live in `assets/skills/<name>.md` and are read on every load: editing one takes effect without a rebuild.
 
 ## Settings
 

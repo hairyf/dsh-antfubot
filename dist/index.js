@@ -802,7 +802,7 @@ function registerServer(ctx) {
 /**
 * The four hand-written antfu workflow skills, injected as bundled skills.
 *
-* Bodies live in `skills/<name>.md` (repository root, shipped in the package
+* Bodies live in `assets/skills/<name>.md` (package-owned assets, shipped via
 * `files` list) and are read on every `get()`, so editing one takes effect on
 * the next load without a rebuild.
 */
@@ -838,7 +838,7 @@ const BUNDLED_SKILLS = [
 * Directory holding the skill bodies. Resolved from the built entry
 * (`dist/index.js`), so it points at `<package>/skills`.
 */
-const ASSETS_DIR = fileURLToPath(new URL("../skills/", import.meta.url));
+const ASSETS_DIR = fileURLToPath(new URL("../assets/skills/", import.meta.url));
 const RESOURCE_BASE = {
 	kind: "directory",
 	path: ASSETS_DIR
