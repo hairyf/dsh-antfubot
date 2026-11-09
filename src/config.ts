@@ -1,14 +1,14 @@
-import type SchemaType from '@deepseek-ai/schemastery'
 import Schema from '@deepseek-ai/schemastery'
 
 /**
  * User-editable settings, rendered as this bundle's card on the Plugins page.
  *
- * A Schema-backed config is what the harness exposes through `configForms`; a
- * value changed there reaches `apply(ctx, config)` on the next composition, so
- * the commands read it without their own storage.
+ * A `volatile` field is what the settings surface projects into a live form; a
+ * static `Schema.string()` is ordinary composition configuration and never
+ * appears in a form. Changes reach `apply(ctx, config)` on the next
+ * composition.
  */
-export interface AntfubotConfig {
+export const Config = Schema.object({
   /**
    * GitHub account (gh CLI login) this plugin acts as.
    *
@@ -16,9 +16,10 @@ export interface AntfubotConfig {
    * plugin only: every gh call runs with GH_TOKEN for this login and nothing is
    * written to gh's stored credentials.
    */
+  githubAccount: Schema.string().default('').volatile(),
+})
+
+/** Resolved config shape, inferred from the schema above. */
+export interface AntfubotConfig {
   githubAccount: string
 }
-
-export const Config: SchemaType<AntfubotConfig> = Schema.object({
-  githubAccount: Schema.string().default(''),
-})

@@ -887,13 +887,30 @@ function registerSkills(ctx) {
 }
 //#endregion
 //#region src/config.ts
-const Config = Schema.object({ githubAccount: Schema.string().default("") });
+/**
+* User-editable settings, rendered as this bundle's card on the Plugins page.
+*
+* A `volatile` field is what the settings surface projects into a live form; a
+* static `Schema.string()` is ordinary composition configuration and never
+* appears in a form. Changes reach `apply(ctx, config)` on the next
+* composition.
+*/
+const Config = Schema.object({ 
+/**
+* GitHub account (gh CLI login) this plugin acts as.
+*
+* Empty means "use the account gh already has active". The scope is this
+* plugin only: every gh call runs with GH_TOKEN for this login and nothing is
+* written to gh's stored credentials.
+*/
+githubAccount: Schema.string().default("").volatile() });
 //#endregion
 //#region src/index.ts
 const name = "antfubot";
 const inject = [
 	"skills",
 	"commands",
+	"settings",
 	"webServer"
 ];
 /** Value of the last composed config, read by the routes this plugin serves. */
@@ -912,6 +929,7 @@ function currentConfig() {
 */
 function apply(ctx, config) {
 	current = normalizeConfig(config);
+	ctx.effect(() => ctx.settings.configure({ auto: false }, ctx.fiber), "antfubot: settings page policy");
 	registerSkills(ctx);
 	registerCommands(ctx);
 	registerServer(ctx);

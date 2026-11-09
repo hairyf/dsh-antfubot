@@ -1,5 +1,5 @@
+# This bundle's row. The row name MUST equal the package name: the client
+# module resolver looks the package up by row name to find its browser half.
 - insert:
     - id: dsh-antfubot
       name: dsh-antfubot
-    - id: dsh-taiwind
-      name: dsh-taiwind

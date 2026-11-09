@@ -111,6 +111,7 @@
     "@deepseek-ai/dsh-commands": "^0.2.2-rc.1",
     "@deepseek-ai/dsh-host-webserver": "^0.2.2-rc.1",
     "@deepseek-ai/dsh-llm": "^0.2.2-rc.1",
+    "@deepseek-ai/dsh-settings": "^0.2.2-rc.1",
     "@deepseek-ai/dsh-skill": "^0.2.2-rc.1",
     "@deepseek-ai/schemastery": "^3.19.0",
     "@types/node": "^26.1.1",
