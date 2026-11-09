@@ -883,7 +883,7 @@ const provider = {
 	}
 };
 /**
-* Register the antfuflow skill provider on `ctx.skills`.
+* Register the antfubot skill provider on `ctx.skills`.
 *
 * The provider is stable, so a rejected registration is a hard failure: the
 * plugin should not pretend to inject skills it cannot deliver.
