@@ -1,7 +1,7 @@
 {
   "name": "dsh-antfubot",
   "type": "module",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "packageManager": "pnpm@11.15.1",
   "description": "Anthony Fu's agent workflow for DeepSeek Harness: issue triage, digest, task execution, PR creation and simplification",
   "author": "Hairy <wwu710632@gmail.com>",
