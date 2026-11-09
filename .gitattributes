@@ -1,0 +1,4 @@
+# Skill bodies are hashed by the skills CLI; normalization keeps the hash
+# identical on Windows and Linux checkouts.
+skills/** text eol=lf
+assets/skills/** text eol=lf
